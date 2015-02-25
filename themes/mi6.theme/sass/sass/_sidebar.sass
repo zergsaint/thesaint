@@ -1,0 +1,121 @@
+// Sidebar (fixed)
+$sb-bg-color        : lighten($theme-color, 1)
+$sb-hover           : lighten($theme-color, 5)
+$sb-font-color      : darken($theme-color, 15)
+$sb-hover-font-color: darken($theme-color, 40)
+
+#sidebar
+  position: fixed
+  bottom: 0
+  height: 3em
+  background-color: $sb-bg-color
+  border-top: 1px solid darken($theme-color, 8)
+
+  @media #{$more-than-tablet}
+    top: 0
+    right: 0
+    height: 100%
+    background-color: $sb-bg-color
+    border-top: none
+    border-left: 1px solid darken($theme-color, 8)
+
+  &:hover
+    .content-container
+      opacity: 1!important
+
+  // Profile
+  section.profile
+    position: relative
+    text-align: left
+    height: 100%
+
+    // Place above media queries due to importance
+    img
+      position: relative
+      z-index: 1
+      height: 3em
+      width: auto
+
+    a
+      &:hover
+        // Removes link hover effect from icons
+        border-bottom: none
+
+    .content-container
+      +transition(opacity .25s ease-in-out)
+      opacity: .4
+
+    @media #{$more-than-tablet}
+      // Profile
+      // Image above links
+      top: 20%
+      height: auto
+      text-align: center
+
+      img
+        +border-radius(50%)
+        height: auto
+        width: 50%
+        border: .2em solid #fff
+
+      .content-container ul
+        font-size: 2em
+
+      li
+        margin-right: .5em
+
+      h2
+        font-size: .8em
+        margin-bottom: .1em
+
+    @media #{$very-tall}
+      top: 35%
+
+    @media #{$more-than-desktop + $and-tall}
+      // Profile
+      // Image to left, links to right,
+      // +container
+      text-align: left
+
+      h2
+        margin-top: 25%
+
+      img
+        width: 100%
+
+      .image-container
+        +span-columns(5, 12)
+
+      .content-container
+        +span-columns(7 omega, 12)
+
+      .image-container-inner
+        padding-left: 2em
+
+      .content-container-inner
+        padding: 0 1em
+
+    @media #{$short-and-wide}
+      // If too short, render profile just beneath header
+      top: 65px
+      text-align: left
+
+      .image-container
+        +span-columns(3, 12)
+
+      .content-container
+        +span-columns(9 omega, 12)
+
+      .content-container-inner
+        padding-left: 2em
+        padding-top: 1em
+
+      .image-container-inner
+        padding-left: 1em
+      img
+        width: 100%
+        border: .2em solid #fff
+
+    @media #{$short-and-thin}
+      .content-container-inner
+        padding-top: 0
