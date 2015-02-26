@@ -1,5 +1,0 @@
-# To Do
-
-- [resp] Handle hover/touch/click events for menus (enhance responsiveness)
-- [sass] Sort out all sass (partialize more)
-- [ft]   Add author_biography to articles
