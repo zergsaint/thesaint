@@ -1,5 +1,4 @@
 /
+articles
 about-me
 bookshelf
-articles
-  bacula
