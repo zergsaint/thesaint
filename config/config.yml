@@ -65,3 +65,35 @@ content: content
 # production:
 #   content: /var/apps/nesta/shared/content
 #   google_analytics_code: "UA-???????-?"
+mailer:
+  subject: "Site contact form: "
+  to: "mailerthesaint@gmail.com"
+  via: smtp
+  via_options:
+    address: smtp.gmail.com
+    port: 587
+    authentication: plain
+    enable_starttls_auto: true
+    pw: "portos8972Hatarallabonderbarasaduvet"
+    user_name: "mailer"
+# Owner
+# Information will be used in rendering icons
+# and links to your public profiles.
+# Uncomment and fill in the ones you intend to use.
+owner:
+  name: Johan Börjesson
+  gravatar: http://www.gravatar.com/avatar/63f177fb0e45c47cb681e8ce6b9f0b48.png
+  contact_me_text: Get in touch
+  profiles:
+    Twitter:
+      user: zergsaint
+      url: https://twitter.com/zergsaint
+      icon: fa-twitter-square
+    GitHub:
+      user: Github username
+      url: https://github.com/zergsaint
+      icon: fa-github
+    LinkedIn:
+      user: Johan Börjesson
+      url: https://www.linkedin.com/profile/view?id=299086787
+      icon: fa-linkedin-square

@@ -1,10 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'nesta', '0.10.0'
+gem "nesta", :git => "git://github.com/gma/nesta.git"
+gem 'compass'
+gem 'susy'
 
-
-group :development do
-  gem 'mr-sparkle'
-end
-
-# gem 'debugger'
+gem 'ultraviolet', :require => 'uv'
+gem 'rack-codehighlighter', :require => 'rack/codehighlighter'
+gem 'pony', :git => "https://github.com/benprew/pony.git"
