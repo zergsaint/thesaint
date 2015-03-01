@@ -7,3 +7,82 @@ Flags: primary
 
 %h1
   About me
+
+= haml :public_profile, :layout => false, :locals => { :title => false, :bare => true, :inline => true }
+
+%p
+  I'm born in -89 which makes me
+
+  = age(Date.new(1989, 9, 10))
+
+  at the moment.
+
+
+:markdown
+  ---
+  ##Background
+
+  I allways had a great passion for computers, when I was a kid I mostly used them for computer games. But on later years they have been more like a toolbox.
+
+  After I started to study I felt that this was the right field to advance and continue to pursue a career in, and even before I finished my studies I had a fulltime job beside my studies
+
+  So my days where a bit hectic. But now I have finished school and are working hard to become a better SysAdmin one step at a time.
+  
+  When I'm not doing that, I enjoy lifting weights at the gym, playing starcraft and spending time with my loved ones.
+
+  ## Skills/Technologies
+
+  _I have most experience in development with these technologies._
+
+.column-grid.columns-2
+  .column-1
+
+    .flag-list
+      :markdown
+        ### <span>Backups</span> Tools of choice
+
+      %ul.code
+        %li
+          %a{ :href => 'http://www.bacula.org/', :target => '_blank' }
+            Bacula
+        %li
+          %a{ :href => 'http://www.veeam.com/', :target => '_blank' }
+            Veeam
+
+        %li
+          %a{ :href => 'http://www.r1soft.com/', :target => '_blank' }
+            Ideera
+
+  .column-2
+    .flag-list
+      :markdown
+        ### <span>Servers</span> mostly worked with..
+
+      %ul.code
+        %li
+          %a{ :href => 'http://www.debian.org/', :target => '_blank' }
+            Debian
+        %li
+          %a{ :href => 'http://www.centos.org/', :target => '_blank' }
+            CentOS
+
+        %li
+          %a{ :href => 'http://www.supermicro.com/', :target => '_blank' }
+            Supermicro
+
+:markdown
+  ## Software choices
+
+  _Programs/Languages_
+
+  - Shell scripting
+  - Python
+  - Nmap
+  - Iptables
+  - Bacula
+
+  _Code authoring_
+
+  - Sublime Text
+  - Nano
+  - Vim
