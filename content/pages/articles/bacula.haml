@@ -9,4 +9,49 @@ Summary: Backups and how to do it
 %h1
   Improve your backups and save the day
 
+:markdown
+  I have been doing some research into how to make virtual full backups with bacula. This has been a bit challenging since I am creating an virtual server to use as lab for bacula storage.
+  So after the initial configuration I will try to make the container run its mysql from the SSD drives from the storage node.
 
+  In this article I will present how the work progressed and what issues i encountered. So the basics is simple, after the installation of the OpenVZ server I had to make some custom settings for the container itself.
+  And after that it was the basic install of bacula, the only thing I changed is the running scheme (will get back to that later). So first before anything the directorie /var/lib/mysql should have its physical storage on the SSD drives.
+
+  This is due to the performance enhancement it will give the database further on in the project.
+  
+  So on the storage node I created `/etc/vz/conf/{vzid}.mount`
+  <pre><code>#!/bin/bash
+
+  . /etc/vz/vz.conf
+  . ${VE_CONFFILE}
+  SRC=/vz-ssd-data/{vzid}/
+  DST=/var/lib/mysql
+  if [ ! -e ${VE_ROOT}${DST} ]; then mkdir -p ${VE_ROOT}${DST}; fi
+  mount -n -t simfs ${SRC} ${VE_ROOT}${DST} -o ${SRC}
+
+  </code></pre>
+
+
+  Once this script has been save a restart of the container is needed to remount the directory on the other harddrives.
+
+  
+%h2
+  Bacula
+
+:markdown
+  The installation and configuration of bacula can be a bit tricky. There are different files/demons that are depending on eachother and several passwords to handle. So to grasp the greater picture is not allways easy.
+
+
+%img{ :src => '/attachments/img/general/bacula.jpg', :alt => 'Structure', :title => 'The greater picture' }
+
+:markdown
+  `source www.bacula.com`
+  
+  The picture above is a great guideline in how to get your bacula configuration up and running in no time. So now the basic work is done and the LAB can begin.
+
+%h3
+  The configuration
+
+
+:markdown
+  So the plan is to have a fullbackup once every month, then run virtualfull backups once every week, and inbetween these it will be the incremental jobs. The data will be saved for 30 days since I dont want to save outdated data.
+  So why would i want to run a virtualfull backup instead of the normal full? well it is due to the amount of data that is going to be backed up. If it was a couple of large files it would do, but if you backup several thousands small files it will take a small eternity for the job to finish.
