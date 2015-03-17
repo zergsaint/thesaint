@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 MI6 Nesta theme
 ===============
 
@@ -79,3 +80,7 @@ The metadata flag you need to add to a content page is: `Flags: primary`.
 
 - _The Mi6 theme was designed and built by [André Drougge](http://miphe.com)._
 - _Why "Mi6"?_ - short for miphe 6.0, the 6'th theme developed for the miphe.com domain.
+=======
+# thesaint
+thesaint website
+>>>>>>> 529e7777a2c1997d3c487f5d68e303493d6b0e04
