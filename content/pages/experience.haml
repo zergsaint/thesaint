@@ -1,0 +1,78 @@
+Title: Experience | The Saint | Johan Börjesson
+Description: Curriculum Vitae
+Keywords: CV, experience
+Summary: CV
+Show meta: false
+Flags: primary
+
+%h1
+  Experience
+
+= haml :public_profile, :layout => false, :locals => { :title => false, :bare => true, :inline => true }
+
+:erb
+  <%
+
+    # heading => Heading of article
+    # details => Short summary
+    # extra   => One-line meta info
+    # length  => Determines the length of a bar. 4 is a full year.
+    # stop    => Determines in which quarter the bar should stop (top).
+
+    timeline = [
+      {
+        :year => '2015',
+        :articles => [
+          {
+            :heading => 'System Administrator, Glesys Internet Services AB',
+            :details => 'Working with OpenVZ, Bacula, Veeam and Linux in general - big focus on stability and scalability.',
+            :extra => 'Sweden, Stockholm | 2014 - Present',
+            :length => 3,
+            :stop => 3
+          }
+        ]
+      },
+      {
+        :year => '2014',
+        :articles => [
+          {
+            :heading => 'Student, Nackademins Yrkeshögskola',
+            :details => 'I did a degree in Linux System Administration. During my studies I managed to achieve a CCNA.<br /><br />',
+            :extra => 'Sweden, Stockholm  | 2013 - 2015',
+            :length => 6,
+            :stop => 0
+          }
+        ]
+      },
+      {
+        :year => '2013',
+        :articles => [
+          {
+            :heading => 'Soldier, Swedish Armed Forces',
+            :details => 'I Joined the Swedish Armed Forces after my service and started to work as a technician for several of the systems that we used in our batalion .', 
+            :extra => 'Sweden, Stockholm | 2010 - 2013',
+            :length => 12,
+            :stop => 2
+          }
+        ]
+      },
+      {
+        :year => '2012',
+        :articles => []
+      },
+      {
+        :year => '2011',
+        :articles => []
+      },
+    ]
+  %>
+
+= haml :"partials/timeline", :layout => false, :locals => { :timeline => timeline }
+
+:markdown
+
+  ## Up until 2010
+  - Education: Military service <span class="subtle-text">Swedish Armed Forces (sthlm)</span>
+  - Education: Swedish School of Elite Sports &amp; Layout <span class="subtle-text">Karate (sthlm)</span>
+
+
