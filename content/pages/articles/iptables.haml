@@ -1,0 +1,85 @@
+Title: Iptables | The Saint | Johan Börjesson
+Link text: How to secure your server
+Description: The first steps to secure your server
+Keywords: security
+Categories: sysadmin
+Date: 23 March 2015
+Summary: The first steps to secure your server
+
+
+%h1
+  Secure your server!
+
+
+:markdown
+  So you have just finished the setup of your server. You are just about to set you application to production. And you think about securing your server.
+  
+
+%h3
+  Where to start?
+
+:markdown
+  First of you need a firewall, down below is a basic setup of one and the option to whitelist and blacklist certain ipranges.
+
+  <pre><code>
+    I=/sbin/iptables
+    $I -F
+    $I -X
+    #
+    # # Chain INPUT
+    #
+    $I -A INPUT -i lo -j ACCEPT
+    $I -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+    # HTTP
+    #If you have website content that you would like to show.
+    $I -A INPUT -p TCP --dport 80 -j ACCEPT
+    $I -A INPUT -p TCP --dport 443 -j ACCEPT
+    # SSH
+    $I -A INPUT -p TCP --dport 22 -j ACCEPT
+    $I -A OUTPUT -p TCP --dport 22 -j ACCEPT
+    #Here you could specify your static IP
+    #$I -A INPUT -p TCP --dport 22 -s [IP-address/Range] -j ACCEPT
+    #
+    #PING
+    #To avoid the most basic ping scans
+    $I -A INPUT -p ICMP -j DROP
+  </code></pre>
+
+:markdown
+  Ok so thats the input, but imagine that the hacker gains access. What is the next step? 
+
+
+  Well if I breached a system I would prefer to use my own tools so first I would download all my scripts and other things that I would find usefull to exploit the server.
+  To avoid this we will block all trafic in and out from the server except the things we whitelist.
+
+:markdown
+  How do I "whitelist" a service I would like to connect to my server without flushing the rules?
+  First you figure out what IP range the service use, this is best done doing `whois IP` and then you will recieve what IP range you should whitelist for the service. You can allways google your way forward with
+  `IP range github` for example. And the whitelist itself you normally put something like the following.
+
+  <pre><code>
+
+  for HOST in x.x.x.x/22 x.x.x.x/32 ; do
+    $I -A OUTPUT -p TCP -d $HOST --dport 22 -j ACCEPT
+    $I -A INPUT -p TCP -s $HOST --sport 22  -j ACCEPT
+    done
+
+  </code></pre>
+
+
+:markdown
+  And then we will drop all other traffic. And by this we have taken a small step to a safer server.
+
+  <pre><code>
+
+  $I -A INPUT -j DROP
+  $I -A OUTPUT -j DROP
+  $I -A FORWARD -j DROP
+
+  exit 0
+  </code></pre>
+
+:markdown
+  There is several more steps you could take, like installing software such as "fail2ban" and more. One thing to have in mind is that you should always have a backup of your servers content.
+  
+

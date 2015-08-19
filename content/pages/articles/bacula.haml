@@ -60,3 +60,84 @@ Summary: Backups and how to do it
 :markdown
   So the plan is to have a fullbackup once every month, then run virtualfull backups once every week, and inbetween these it will be the incremental jobs. The data will be saved for 30 days since I dont want to save outdated data.
   So why would i want to run a virtualfull backup instead of the normal full? well it is due to the amount of data that is going to be backed up. If it was a couple of large files it would do, but if you backup several thousands small files it will take a small eternity for the job to finish.
+
+  
+  The scheme i set up looks something like this.
+  <pre><code>
+  Schedule {
+  Name = "OneWeek_Friday"
+  Run = Full 1st fri at 00:05
+  Run = VirtualFull 2nd-5th fri at 00:05
+  Run = Incremental sat-thu at 00:05
+  }
+  </code></pre>  
+
+:markdown
+  
+  I would recomend that you spread the fullbackup jobs, over the week so not all full jobs will run on the same day.
+  The config above is just a small example and nothing i would recomend. Since you are doing virtualfull jobs every week you could run a normal full job once every quarter or similar. 
+  
+  
+  The thing with virtualjobs is that you need two pools, two storages and a feeling for troubleshoting.
+  You will need the doubble pool since when you start the virtualfull job it will take the six last incremental jobs and push the data together to become a full backup.
+  It is slight more complicated then that but i will leave it here for now.
+
+  Example of my config for virtual backups.
+  
+  <pre><code>
+  Pool {
+    Name = bacula-pool-1
+    Pool Type = Backup
+    Recycle = yes
+    AutoPrune = yes
+    Volume Retention = 21 days
+    # 1G*10 = 10G
+    Maximum Volume Bytes = 1G
+    Maximum Volumes = 10
+    Label Format = "Bacula-1"
+    Next Pool = "bacula-pool-2"
+  }
+
+  Pool {
+    Name = bacula-pool-2
+    Pool Type = Backup
+    Recycle = yes
+    AutoPrune = yes
+    Volume Retention = 21 days
+    # 1G*10 = 10G
+    Maximum Volume Bytes = 1G
+    Maximum Volumes = 10
+    Label Format = "Bacula-1"
+    Storage = bacula-stor-2
+  }
+  </code></pre>
+
+  Important to notice is the "Next Pool" from Pool-1, this is essential to get the virtualfull jobs to work. 
+  
+  <pre><code>
+  Storage {
+    Name = bacula-stor-1
+    Address = x.x.x.x
+    SDPort = 9103
+    Password = "password"
+    Device = bacula-test1-1-dev
+    Media Type = File
+    Maximum Concurrent Jobs = 3
+  }
+
+  Storage {
+    Name = bacula-stor-2
+    Address = x.x.x.x
+    SDPort = 9103
+    Password = "password"
+    Device = bacula-test1-2-dev
+    Media Type = File
+    Maximum Concurrent Jobs = 3
+  }
+  </code></pre>
+
+:markdown
+
+  I hope this will be a start for my article series for backups and how to manage. I know there is little content for how my thoughts are going at the moment.
+  But for now I will work on the lab and get back to you with an much more detailed summary on how it worked for me.
+

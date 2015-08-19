@@ -1,0 +1,45 @@
+Title: Nmap | The Saint | Johan Börjesson
+Link text: How to efficiently use Nmap in your daily work
+Description: Scanning for security
+Keywords: security
+Categories: sysadmin
+Date: 25 March 2015
+Summary: Better safe than sorry
+
+
+%h1
+  Better safe than sorry
+
+
+:markdown
+  Ok so what is this magic nmap? Well in short terms it is a program written to scan for open ports and services on hosts within a network. And the long story you can read somewhere else.
+  
+
+  So Why would I use it? Well thats up to you, but it can be extremly helpful to see what doors you forgot to lock on your server. Lets think of it like an house.
+
+  
+  Locked doors is a precaution from your side to make it difficult for burgulars. It is the same for servers, the less ports / services they can exploit the safer you will be.
+
+  
+%h3
+  The basics
+
+:markdown
+  Down below I will make a few examples in how you could use nmap in your daily work.
+
+  <pre><code>
+
+  # Scan a single ip address #
+  nmap x.x.x.x
+ 
+  # Scan a host name #
+  nmap domain.name.com
+  
+  # Scan a host name with more info #
+  nmap -v domain.name.com
+ 
+
+  </code></pre>
+
+:markdown
+  More information coming soon
