@@ -1,0 +1,71 @@
+Title: rsync | The Saint | Johan Börjesson
+Link text: rsync backup
+Description: Backup with rsync
+Keywords: backup
+Categories: sysadmin
+Date: 11 December 2015
+Summary: Backup with rsync
+
+
+%h1
+  How to rsync
+
+
+:markdown
+  I will try to show how to manage rsync, and what different ways there are to ensure you have backups offsite.
+  
+
+%h3
+  Where to start
+
+:markdown
+  
+
+  <pre><code>
+  rsync -avz host@domain.com:/dir/subdir1 :/dir/subdir2 :/dir/subdir3 /path/on/localhost
+  </code></pre>
+
+:markdown
+  Above you see an example where I, from my local server, download multiple directories from a remote server. 
+
+
+  There are several arguments you can use for rsync. Above I used `rsync -avz`, these arguments run the backup with all filepermissions intact and it will verbose so you see the progress.
+  The `z` option compress the files during transfer.
+
+:markdown
+  I will try to show some other ways you can use rsync and with some different variables
+
+  <pre><code>
+  -a, --archive, recursion and to preserve almost all attributes of the source files.
+
+  -v, --verbose, will give you information about what files are being transferred and a brief summary when finished. 
+
+  -z, --compress, compresses the file data as it is sent to the destination machine, which reduces the amount of data being transmitted.
+
+  --bwlimit, specified with "kb/second" if you have restrictions from management and don´t want to disturb production.
+
+  --progress, it displays the files and the time that remains to complete the transfer.
+
+  </code></pre>
+
+
+:markdown
+  Here is a example on how you can backup your data with a script in crontab.
+
+  <pre><code>
+  #!/bin/bash
+  #rsync server
+  rsync -avz --bwlimit=6000 --progress user@hostname.tld:/dir/subdir1 :/dír/subdir1 :/dir/subdir2 /dir/on/localhost 
+  if [ $? -eq 0 ]; then echo "backup OK!" | mail -s "Backup of server" mymail@domain.tld
+  else echo "backup FAIL!" | mail -s "Backup of server" mymail@domain.tld
+  fi
+  </code></pre>
+
+  Create this script and make it executable `chmod +x scriptname.sh` and add it to your crontab `crontab -e`
+
+  <pre><code>
+  00 00 * * * /path/to/scriptname.sh
+  </pre></code>
+  
+  Now get your backup
+

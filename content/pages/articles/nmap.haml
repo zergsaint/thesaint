@@ -38,8 +38,35 @@ Summary: Better safe than sorry
   # Scan a host name with more info #
   nmap -v domain.name.com
  
+  # Scan a subnet
+  nmap -sP 192.168.1.0/24
 
+  # Scan for active hosts on a network
+  nmap -sn 192.168.1.0/24
+
+  # Scan for open ports only
+  nmap --open 192.168.1.1
+
+  # Scan for OS 
+  nmap -O 192.168.1.1
   </code></pre>
 
+  Stealth mode on!
+
+  <pre><code>
+
+  # Spoof your mac
+  nmap --spoof-mac 00:11:22:33:44:55 192.168.1.1
+
+  # Spoof random mac
+  nmap --spoof-mac 0 192.168.1.1
+
+  # TCP SYN Scan
+  nmap -sS 192.168.1.1
+
+  # No ping
+  nmap -Pn 192.168.1.1
+
+  </code></pre>
 :markdown
-  More information coming soon
+  More information coming soon regarding the whys and hows to use this :)
